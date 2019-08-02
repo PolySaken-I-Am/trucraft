@@ -166,11 +166,35 @@ truCraft.register_basic_craft({
 })
 
 truCraft.register_basic_craft({
+	item1="trucraft:shaft", 
+	item2="trucraft:fabric", 
+	item3="trucraft:string2", 
+	item4="trucraft:shaft",
+	result="trucraft:sieve"
+})
+
+truCraft.register_basic_craft({
 	item1="trucraft:rock_stone", 
 	item2="trucraft:stick", 
 	item3="trucraft:stick", 
 	item4="trucraft:stick",
 	result="trucraft:fire"
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:fire", 
+	item2="default:stone", 
+	item3="default:stone", 
+	item4="default:flint",
+	result="trucraft:furnaceplate"
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:rock_stone", 
+	item2="trucraft:rock_stone", 
+	item3="default:flint", 
+	item4="default:flint",
+	result="trucraft:furnacetop"
 })
 
 truCraft.register_chop({

@@ -430,6 +430,38 @@ local d2 = function(pos)
 	rm2(pos)
 end
 
+local rm3 = function(pos)
+	local objs = minetest.env:get_objects_inside_radius({x=pos.x,y=pos.y,z=pos.z}, 0.5)
+	if objs then
+		for _, obj in ipairs(objs) do
+			if obj and obj:get_luaentity() and obj:get_luaentity().name == "trucraft:floater" then
+				obj:remove()
+			end
+		end
+	end
+end
+
+local up3 = function(pos)
+	rm3(pos)
+	local meta = minetest.get_meta(pos)
+	if meta:get_string("item") ~= "" then
+		pos.y = pos.y + 0.17
+		local texture = meta:get_string("item")
+		local ent=minetest.add_entity(pos, "trucraft:floater")
+		ent:set_properties({textures={texture}})
+	end
+end
+
+
+local d3 = function(pos)
+	local meta = minetest.get_meta(pos)
+	if meta:get_string("item") ~= "" then
+		minetest.add_item({x=pos.x,y=pos.y+1,z=pos.z}, meta:get_string("item"))
+		meta:set_string("item","")
+	end
+	rm3(pos)
+end
+
 minetest.register_node("trucraft:table", {
 	description="Basic Crafting Pedestal",
 	tiles={"default_tree_top.png^poly_tcmatrix.png", "default_tree_top.png", "default_tree.png"},
@@ -533,6 +565,8 @@ minetest.register_node("trucraft:station", {
 		local inv=minetest.get_meta(pos):get_inventory()
 		inv:set_list("main", {})
 		inv:set_size("main", 4)
+		inv:set_list("dolg", {})
+		inv:set_size("dolg", 4)
 		
 		if minetest.get_node({x=pos.x, y=pos.y, z=pos.z+1}).name=="trucraft:table" then
 			local meta=minetest.get_meta({x=pos.x, y=pos.y, z=pos.z+1})
@@ -551,7 +585,10 @@ minetest.register_node("trucraft:station", {
 			inv:add_item("main", meta:get_string("item"))    
 		end
 		
+		inv:set_list("dolg", inv:get_list("main"))
+		
 		for _,v in pairs(truCraft.basic_crafts) do
+			inv:set_list("main", inv:get_list("dolg"))
 			if inv:contains_item("main", v.item1) then
 				inv:remove_item("main", v.item1)
 				if inv:contains_item("main", v.item2) then
@@ -650,6 +687,46 @@ minetest.register_node("trucraft:fire", {
 		timer:set(0.1, 0)
 	end,
 	on_punch = function(pos, node, player, pointed_thing)
+		if player:get_wielded_item():get_name() == "default:wood" then
+			local meta=minetest.get_meta(pos)
+			meta:set_string("fire", "true")
+			meta:set_int("calltime", meta:get_int("calltime")+200)
+			local stack=player:get_wielded_item()
+			stack:take_item()
+			player:set_wielded_item(stack)
+		end
+		if player:get_wielded_item():get_name() == "default:acacia_wood" then
+			local meta=minetest.get_meta(pos)
+			meta:set_string("fire", "true")
+			meta:set_int("calltime", meta:get_int("calltime")+200)
+			local stack=player:get_wielded_item()
+			stack:take_item()
+			player:set_wielded_item(stack)
+		end
+		if player:get_wielded_item():get_name() == "default:pine_wood" then
+			local meta=minetest.get_meta(pos)
+			meta:set_string("fire", "true")
+			meta:set_int("calltime", meta:get_int("calltime")+200)
+			local stack=player:get_wielded_item()
+			stack:take_item()
+			player:set_wielded_item(stack)
+		end
+		if player:get_wielded_item():get_name() == "default:aspen_wood" then
+			local meta=minetest.get_meta(pos)
+			meta:set_string("fire", "true")
+			meta:set_int("calltime", meta:get_int("calltime")+200)
+			local stack=player:get_wielded_item()
+			stack:take_item()
+			player:set_wielded_item(stack)
+		end
+		if player:get_wielded_item():get_name() == "default:junglewood" then
+			local meta=minetest.get_meta(pos)
+			meta:set_string("fire", "true")
+			meta:set_int("calltime", meta:get_int("calltime")+200)
+			local stack=player:get_wielded_item()
+			stack:take_item()
+			player:set_wielded_item(stack)
+		end
 		if player:get_wielded_item():get_name() == "default:coal_lump" then
 			local meta=minetest.get_meta(pos)
 			meta:set_string("fire", "true")
@@ -694,6 +771,255 @@ minetest.register_node("trucraft:fire", {
 				if meta:get_int("cooktime_elapsed")>meta:get_int("cooktime") then
 					meta:set_string("item", meta:get_string("result"))
 					up2(pos)
+					meta:set_string("cooking", "false")
+					meta:set_int("cooktime", 0)
+					meta:set_int("cooktime_elapsed", 0)
+					meta:set_string("result", "")
+				end
+			end
+		end
+		local timer=minetest.get_node_timer(pos)
+		timer:set(0.1, 0)
+	end
+})
+
+minetest.register_node("trucraft:furnaceplate", {
+	description="Smeltery Fuel Plate",
+	tiles={"default_stone.png^poly_tcampfire_top2.png", "default_stone.png", "default_stone.png^poly_tcampfire2.png"},
+	is_ground_content=false,
+	paramtype="light",
+	sunlight_propagates=true,
+	drawtype="nodebox",
+	groups={cracky=3, oddly_breakable_by_hand=3},
+	sounds=default.node_sound_metal_defaults(),
+	selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.25, 0.5}, -- NodeBox1
+			{-0.4375, -0.5, -0.375, -0.25, -0.125, 0.375}, -- NodeBox2
+			{0.25, -0.5, -0.375, 0.4375, -0.125, 0.375}, -- NodeBox3
+			{-0.4375, -0.5, -0.4375, 0.4375, -0.125, -0.25}, -- NodeBox4
+			{-0.4375, -0.5, 0.25, 0.4375, -0.125, 0.4375}, -- NodeBox5
+		}
+	},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.25, 0.5}, -- NodeBox1
+			{-0.4375, -0.5, -0.375, -0.25, -0.125, 0.375}, -- NodeBox2
+			{0.25, -0.5, -0.375, 0.4375, -0.125, 0.375}, -- NodeBox3
+			{-0.4375, -0.5, -0.4375, 0.4375, -0.125, -0.25}, -- NodeBox4
+			{-0.4375, -0.5, 0.25, 0.4375, -0.125, 0.4375}, -- NodeBox5
+		}
+	},
+	on_construct = function(pos)
+		local meta=minetest.get_meta(pos)
+		meta:set_string("fire", "false")
+		meta:set_int("looptime", 0)
+		meta:set_int("calltime", 0)
+		local timer=minetest.get_node_timer(pos)
+		timer:set(0.1, 0)
+	end,
+	on_punch = function(pos, node, player, pointed_thing)
+		if player:get_wielded_item():get_name() == "default:coal_lump" then
+			local meta=minetest.get_meta(pos)
+			meta:set_string("fire", "true")
+			meta:set_int("calltime", meta:get_int("calltime")+600)
+			local stack=player:get_wielded_item()
+			stack:take_item()
+			player:set_wielded_item(stack)
+		end
+	end,
+	on_timer = function(pos, elapsed)
+		local meta=minetest.get_meta(pos)
+		meta:set_int("looptime", meta:get_int("looptime")+1)
+		if meta:get_int("looptime") > meta:get_int("calltime") then
+			meta:set_string("fire", "false")
+			meta:set_int("looptime", 0)
+			meta:set_int("calltime", 0)
+		end
+		if meta:get_string("fire")=="true" then
+			minetest.swap_node(pos, {name="trucraft:furnaceplate2"})
+		end
+		local timer=minetest.get_node_timer(pos)
+		timer:set(0.1, 0)
+	end
+})
+
+minetest.register_node("trucraft:furnaceplate2", {
+	description="Smeltery Fuel Plate",
+	tiles={"default_stone.png^poly_tcampfire_top3.png", "default_stone.png", "default_stone.png^poly_tcampfire2.png"},
+	is_ground_content=false,
+	paramtype="light",
+	sunlight_propagates=true,
+	drawtype="nodebox",
+	groups={cracky=3, oddly_breakable_by_hand=3, not_in_creative_inventory=1},
+	sounds=default.node_sound_metal_defaults(),
+	selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.25, 0.5}, -- NodeBox1
+			{-0.4375, -0.5, -0.375, -0.25, -0.125, 0.375}, -- NodeBox2
+			{0.25, -0.5, -0.375, 0.4375, -0.125, 0.375}, -- NodeBox3
+			{-0.4375, -0.5, -0.4375, 0.4375, -0.125, -0.25}, -- NodeBox4
+			{-0.4375, -0.5, 0.25, 0.4375, -0.125, 0.4375}, -- NodeBox5
+		}
+	},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.25, 0.5}, -- NodeBox1
+			{-0.4375, -0.5, -0.375, -0.25, -0.125, 0.375}, -- NodeBox2
+			{0.25, -0.5, -0.375, 0.4375, -0.125, 0.375}, -- NodeBox3
+			{-0.4375, -0.5, -0.4375, 0.4375, -0.125, -0.25}, -- NodeBox4
+			{-0.4375, -0.5, 0.25, 0.4375, -0.125, 0.4375}, -- NodeBox5
+		}
+	},
+	on_construct = function(pos)
+		local meta=minetest.get_meta(pos)
+		meta:set_string("fire", "false")
+		meta:set_int("looptime", 0)
+		meta:set_int("calltime", 0)
+		local timer=minetest.get_node_timer(pos)
+		timer:set(0.1, 0)
+	end,
+	on_punch = function(pos, node, player, pointed_thing)
+		if player:get_wielded_item():get_name() == "default:coal_lump" then
+			local meta=minetest.get_meta(pos)
+			meta:set_string("fire", "true")
+			meta:set_int("calltime", meta:get_int("calltime")+600)
+			local stack=player:get_wielded_item()
+			stack:take_item()
+			player:set_wielded_item(stack)
+		end
+	end,
+	on_timer = function(pos, elapsed)
+		local meta=minetest.get_meta(pos)
+		meta:set_int("looptime", meta:get_int("looptime")+1)
+		if meta:get_int("looptime") > meta:get_int("calltime") then
+			meta:set_string("fire", "false")
+			meta:set_int("looptime", 0)
+			meta:set_int("calltime", 0)
+		end
+		if meta:get_string("fire")=="true" then
+			minetest.add_particle({
+				pos = pos,
+				velocity = {x=0, y=0, z=0},
+				acceleration = {x=0, y=0, z=0},
+				expirationtime = 1,
+				size = 5,
+				collisiondetection = false,
+				vertical = true,
+				texture = "default_furnace_fire_fg.png"
+			})
+			minetest.add_particle({
+				pos = pos,
+				velocity = {x=0.05, y=0.3, z=0.05},
+				acceleration = {x=0.05, y=0.3, z=0.05},
+				expirationtime = 5,
+				size = 3,
+				collisiondetection = false,
+				vertical = false,
+				texture = "poly_tcsmoke.png"
+			})
+			meta:set_string("infotext", "Fuel: "..meta:get_int("calltime")-meta:get_int("looptime"))
+		else
+			minetest.swap_node(pos, {name="trucraft:furnaceplate"})
+		end
+		local timer=minetest.get_node_timer(pos)
+		timer:set(0.1, 0)
+	end
+})
+
+minetest.register_node("trucraft:furnacetop", {
+	description="Smeltery Hob",
+	tiles={"default_stone.png^poly_tcampfire_top4.png", "default_stone.png", "default_stone.png"},
+	is_ground_content=false,
+	paramtype="light",
+	sunlight_propagates=true,
+	drawtype="nodebox",
+	groups={cracky=3, oddly_breakable_by_hand=3},
+	sounds=default.node_sound_metal_defaults(),
+	selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.1875, -0.5, 0.5, 0, 0.5}, -- NodeBox6
+			{-0.5, -0.5, -0.5, -0.375, -0.1875, -0.375}, -- NodeBox7
+			{-0.5, -0.5, 0.375, -0.375, -0.1875, 0.5}, -- NodeBox8
+			{0.375, -0.5, 0.375, 0.5, -0.1875, 0.5}, -- NodeBox9
+			{0.375, -0.5, -0.5, 0.5, -0.1875, -0.375}, -- NodeBox11
+		}
+	},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.1875, -0.5, 0.5, 0, 0.5}, -- NodeBox6
+			{-0.5, -0.5, -0.5, -0.375, -0.1875, -0.375}, -- NodeBox7
+			{-0.5, -0.5, 0.375, -0.375, -0.1875, 0.5}, -- NodeBox8
+			{0.375, -0.5, 0.375, 0.5, -0.1875, 0.5}, -- NodeBox9
+			{0.375, -0.5, -0.5, 0.5, -0.1875, -0.375}, -- NodeBox11
+		}
+	},
+	on_rightclick = function(pos, node, clicker, itemstack)
+		local meta = minetest.get_meta(pos)
+		if itemstack then
+			local result,dec=minetest.get_craft_result({method="cooking", width=1, items={itemstack:get_name()}})
+			if result.item and result.item:get_name() then
+				meta:set_string("result", ItemStack(result.item):get_name())
+				meta:set_string("cooking", "true")
+				meta:set_int("cooktime", (tonumber(result.time)*10)*10)
+				meta:set_int("cooktime_elapsed", 0.1)
+			end
+			d3(pos)
+			meta:set_string("item", itemstack:get_name())
+			itemstack:take_item()
+			up3(pos)
+		else
+			d3(pos)
+			meta:set_string("cooking", "false")
+			meta:set_int("cooktime", 0)
+			meta:set_int("cooktime_elapsed", 0)
+			meta:set_string("result", "")
+		end
+		return itemstack
+	end,
+	on_destruct = function(pos)
+		d3(pos)
+	end,
+	on_construct = function(pos)
+		local meta=minetest.get_meta(pos)
+		local timer=minetest.get_node_timer(pos)
+		timer:set(0.1, 0)
+	end,
+	on_timer = function(pos, elapsed)
+		local meta=minetest.get_meta(pos)
+		if minetest.find_node_near(pos, 5, {"trucraft:furnaceplate2"}) then
+			minetest.add_particle({
+				pos = pos,
+				velocity = {x=0, y=0, z=0},
+				acceleration = {x=0, y=0, z=0},
+				expirationtime = 1,
+				size = 5,
+				collisiondetection = false,
+				vertical = true,
+				texture = "default_furnace_fire_fg.png"
+			})
+			minetest.add_particle({
+				pos = pos,
+				velocity = {x=0.05, y=0.3, z=0.05},
+				acceleration = {x=0.05, y=0.3, z=0.05},
+				expirationtime = 5,
+				size = 3,
+				collisiondetection = false,
+				vertical = false,
+				texture = "poly_tcsmoke.png"
+			})
+			if meta:get_string("cooking")=="true" then
+				meta:set_string("infotext", "Progress: "..meta:get_int("cooktime_elapsed").."/"..meta:get_int("cooktime"))
+				meta:set_int("cooktime_elapsed", meta:get_int("cooktime_elapsed")+1)
+				if meta:get_int("cooktime_elapsed")>meta:get_int("cooktime") then
+					meta:set_string("item", meta:get_string("result"))
+					up3(pos)
 					meta:set_string("cooking", "false")
 					meta:set_int("cooktime", 0)
 					meta:set_int("cooktime_elapsed", 0)
