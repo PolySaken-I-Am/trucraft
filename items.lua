@@ -65,3 +65,76 @@ minetest.override_item("default:axe_stone", {
 minetest.override_item("default:axe_steel", {
     groups={axe=1},
 })
+
+minetest.override_item("default:axe_bronze", {
+    groups={axe=1},
+})
+
+minetest.override_item("default:axe_mese", {
+    groups={axe=1},
+})
+
+minetest.register_craftitem("trucraft:copper_blade", {
+	description="Crude Copper Blade",
+	inventory_image="poly_tccopperb.png",
+})
+
+minetest.register_craftitem("trucraft:shaft2", {
+	description="Sturdy Wooden Shaft",
+	inventory_image="poly_tcshaft2.png",
+})
+
+minetest.register_craftitem("trucraft:bronze", {
+	description="Bronze Mix",
+	inventory_image="poly_tcbronze.png",
+})
+
+minetest.register_craftitem("trucraft:bronze_plate", {
+	description="Bronze Plate",
+	inventory_image="poly_tcbronzep.png",
+})
+
+minetest.register_craftitem("trucraft:bronze_wedge", {
+	description="Bronze Wedge",
+	inventory_image="poly_tcbronzew.png",
+})
+
+minetest.register_craftitem("trucraft:bronze_hook", {
+	description="Bronze Hook-Blade",
+	inventory_image="poly_tcbronzeh.png",
+})
+
+minetest.register_craftitem("trucraft:bronze_blade", {
+	description="Bronze Blade",
+	inventory_image="poly_tcbronzeb.png",
+})
+
+minetest.register_craftitem("trucraft:steel_plate", {
+	description="Steel Plate",
+	inventory_image="poly_tcbronzep.png^[colorize:#bbffff90",
+})
+
+minetest.register_craftitem("trucraft:steel_wedge", {
+	description="Steel Wedge",
+	inventory_image="poly_tcbronzew.png^[colorize:#bbffff90",
+})
+
+minetest.register_craftitem("trucraft:steel_hook", {
+	description="Steel Hook-Blade",
+	inventory_image="poly_tcbronzeh.png^[colorize:#bbffff90",
+})
+
+minetest.register_craftitem("trucraft:steel_blade", {
+	description="Steel Blade",
+	inventory_image="poly_tcbronzeb.png^[colorize:#bbffff90",
+})
+
+minetest.register_craftitem("trucraft:grass_lump", {
+	description="Plant Mush",
+	inventory_image="poly_tclump.png",
+})
+
+minetest.register_craftitem("trucraft:glue", {
+	description="Plant Glue",
+	inventory_image="poly_tclump2.png",
+})

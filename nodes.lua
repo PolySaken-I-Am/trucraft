@@ -266,6 +266,35 @@ minetest.register_node("trucraft:string2", {
 		fixed = {
 			{-0.5, -0.4375, -0.0625, 0.5, -0.5, 0.0625},
 		}
+	},
+	on_punch = function(pos, node, player, pointed_thing)
+		if player:get_wielded_item():get_name() == "trucraft:copper_knife" then
+			minetest.set_node(pos, {name="trucraft:string3"})
+		end
+	end
+})
+
+minetest.register_node("trucraft:string3", {
+	description="Refined Twine",
+	tiles={"poly_tcstick6.png"},
+	is_ground_content=false,
+	sunlight_propagates=true,
+	drawtype="nodebox",
+	paramtype="light",
+	groups={snappy=3, oddly_breakable_by_hand=3, string=1},
+	sounds=default.node_sound_leaves_defaults(),
+	inventory_image="poly_tcstring4.png",
+	selection_box={
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.4375, -0.0625, 0.5, -0.5, 0.0625},
+		}
+	},
+	node_box={
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.4375, -0.0625, 0.5, -0.5, 0.0625},
+		}
 	}
 })
 
@@ -514,6 +543,12 @@ minetest.register_node("trucraft:table", {
 				end
 			end
 		end
+		if player:get_wielded_item():get_name() == "default:steel_ingot" then
+			minetest.set_node(pos, {name="trucraft:table2"})
+			local stack=player:get_wielded_item()
+			stack:take_item()
+			player:set_wielded_item(stack)
+		end
 	end,
 })
 
@@ -621,6 +656,14 @@ minetest.register_node("trucraft:station", {
 			end
 		end
 	end,
+	on_punch = function(pos, node, player, pointed_thing)
+		if player:get_wielded_item():get_name() == "default:steel_ingot" then
+			minetest.set_node(pos, {name="trucraft:station2"})
+			local stack=player:get_wielded_item()
+			stack:take_item()
+			player:set_wielded_item(stack)
+		end
+	end,
 })
 
 minetest.register_node("trucraft:fire", {
@@ -656,16 +699,16 @@ minetest.register_node("trucraft:fire", {
 		local meta = minetest.get_meta(pos)
 		if itemstack then
 			local result,dec=minetest.get_craft_result({method="cooking", width=1, items={itemstack:get_name()}})
+			d2(pos)
 			if result.item and result.item:get_name() then
 				meta:set_string("result", ItemStack(result.item):get_name())
 				meta:set_string("cooking", "true")
 				meta:set_int("cooktime", (tonumber(result.time)*10)*30)
 				meta:set_int("cooktime_elapsed", 0.1)
+				meta:set_string("item", itemstack:get_name())
+				itemstack:take_item()
+				up2(pos)
 			end
-			d2(pos)
-			meta:set_string("item", itemstack:get_name())
-			itemstack:take_item()
-			up2(pos)
 		else
 			d2(pos)
 			meta:set_string("cooking", "false")
@@ -964,16 +1007,16 @@ minetest.register_node("trucraft:furnacetop", {
 		local meta = minetest.get_meta(pos)
 		if itemstack then
 			local result,dec=minetest.get_craft_result({method="cooking", width=1, items={itemstack:get_name()}})
+			d3(pos)
 			if result.item and result.item:get_name() then
 				meta:set_string("result", ItemStack(result.item):get_name())
 				meta:set_string("cooking", "true")
 				meta:set_int("cooktime", (tonumber(result.time)*10)*10)
 				meta:set_int("cooktime_elapsed", 0.1)
+				meta:set_string("item", itemstack:get_name())
+				itemstack:take_item()
+				up3(pos)
 			end
-			d3(pos)
-			meta:set_string("item", itemstack:get_name())
-			itemstack:take_item()
-			up3(pos)
 		else
 			d3(pos)
 			meta:set_string("cooking", "false")
@@ -1029,5 +1072,335 @@ minetest.register_node("trucraft:furnacetop", {
 		end
 		local timer=minetest.get_node_timer(pos)
 		timer:set(0.1, 0)
+	end
+})
+
+minetest.register_lbm({
+	name = "trucraft:fix_ent3",
+	run_at_every_load=true,
+	nodenames = {"trucraft:furnacetop"},
+	action = function(pos, node)
+		up3(pos)
+	end,
+})
+
+minetest.register_node("trucraft:anvilstone", {
+	description="Basic Stone Anvil",
+	tiles={"default_stone.png^poly_tcmatrix3.png", "default_stone.png", "default_stone.png"},
+	is_ground_content=false,
+	paramtype="light",
+	sunlight_propagates=true,
+	drawtype="nodebox",
+	groups={cracky=3, oddly_breakable_by_hand=3},
+	sounds=default.node_sound_metal_defaults(),
+	selection_box={
+		type = "fixed",
+		fixed = {
+			{-0.375, -0.5, -0.375, 0.375, -0.25, 0.375}, -- NodeBox1
+			{-0.3125, -0.5, -0.3125, 0.3125, 0.375, 0.3125}, -- NodeBox2
+			{-0.4375, 0.0625, -0.4375, 0.4375, 0.4375, 0.4375}, -- NodeBox3
+		}
+	},
+	node_box={
+		type = "fixed",
+		fixed = {
+			{-0.375, -0.5, -0.375, 0.375, -0.25, 0.375}, -- NodeBox1
+			{-0.3125, -0.5, -0.3125, 0.3125, 0.375, 0.3125}, -- NodeBox2
+			{-0.4375, 0.0625, -0.4375, 0.4375, 0.4375, 0.4375}, -- NodeBox3
+		}
+	},
+	on_rightclick = function(pos, node, clicker, itemstack)
+		local meta = minetest.get_meta(pos)
+		if itemstack then
+			d(pos)
+			meta:set_string("item", itemstack:get_name())
+			itemstack:take_item()
+			up(pos)
+			meta:set_int("percent", 0)
+			meta:set_string("infotext", "Completeness: 0")
+		else
+			d(pos)
+			meta:set_int("percent", 0)
+			meta:set_string("infotext", "Completeness: 0")
+		end
+		return itemstack
+	end,
+	on_destruct = function(pos)
+		d(pos)
+	end,
+	on_construct = function(pos)
+		local meta=minetest.get_meta(pos)
+		meta:set_int("percent", 0)
+		meta:set_string("infotext", "Completeness: 0")
+	end,
+	on_punch = function(pos, node, player, pointed_thing)
+		if player:get_wielded_item():get_definition().groups.hammer then
+			local meta=minetest.get_meta(pos)
+			local item=meta:get_string("item")
+			if item then
+				if truCraft.anvil[item] then
+					meta:set_int("percent", meta:get_int("percent")+player:get_wielded_item():get_definition().groups.hammer)
+					meta:set_string("infotext", "Completeness: "..meta:get_int("percent"))
+					if meta:get_int("percent") > 99 then
+						meta:set_string("item", truCraft.anvil[item])
+						meta:set_int("percent", 0)
+						meta:set_string("infotext", "Completeness: "..0)
+						up(pos)
+					end
+				end
+			end
+		end
+		
+		if player:get_wielded_item():get_definition().groups.hammer2 then
+			local meta=minetest.get_meta(pos)
+			local item=meta:get_string("item")
+			if item then
+				if truCraft.anvil2[item] then
+					meta:set_int("percent", meta:get_int("percent")+player:get_wielded_item():get_definition().groups.hammer2)
+					meta:set_string("infotext", "Completeness: "..meta:get_int("percent"))
+					if meta:get_int("percent") > 99 then
+						meta:set_string("item", truCraft.anvil2[item])
+						meta:set_int("percent", 0)
+						meta:set_string("infotext", "Completeness: "..0)
+						up(pos)
+					end
+				end
+			end
+		end
+	end,
+})
+
+minetest.register_lbm({
+	name = "trucraft:fix_ent4",
+	run_at_every_load=true,
+	nodenames = {"trucraft:anvilstone"},
+	action = function(pos, node)
+		up(pos)
+	end,
+})
+
+minetest.override_item("default:stone_with_tin", {
+	groups={cracky=4}
+})
+
+minetest.override_item("default:stone_with_copper", {
+	groups={cracky=4}
+})
+
+minetest.register_node("trucraft:rock_reinforced", {
+	description="Reinforced Stone",
+	tiles={"default_stone.png"},
+	is_ground_content=false,
+	sunlight_propagates=true,
+	drawtype="nodebox",
+	paramtype="light",
+	groups={cracky=3, oddly_breakable_by_hand=3, rock=1},
+	sounds=default.node_sound_stone_defaults(),
+	inventory_image="poly_tcpebble4.png",
+	selection_box={
+		type="fixed",
+		fixed= {-4 / 16, -0.5, -4 / 16, 4 / 16, -0.25, 4 / 16}
+	},
+	node_box={
+		type="fixed",
+		fixed= {	{-4 / 16, -0.5, -4 / 16, 4 / 16, -0.25, 4 / 16},
+					{-5 / 16, -0.5, -3 / 16, 5 / 16, -0.4, 3 / 16},
+					{-3 / 16, -0.5, -5 / 16, 3 / 16, -0.4, 5 / 16},}
+	}
+})
+
+minetest.register_node("trucraft:table2", {
+	description="Advanced Crafting Pedestal",
+	tiles={"default_steel_block.png^poly_tcmatrix.png", "default_steel_block.png", "default_steel_block.png"},
+	is_ground_content=false,
+	paramtype="light",
+	sunlight_propagates=true,
+	drawtype="nodebox",
+	groups={cracky=3, oddly_breakable_by_hand=3},
+	sounds=default.node_sound_metal_defaults(),
+	selection_box={
+		type = "fixed",
+		fixed = {
+			{-0.375, -0.5, -0.375, 0.375, -0.25, 0.375}, -- NodeBox1
+			{-0.3125, -0.5, -0.3125, 0.3125, 0.375, 0.3125}, -- NodeBox2
+			{-0.4375, 0.0625, -0.4375, 0.4375, 0.4375, 0.4375}, -- NodeBox3
+		}
+	},
+	node_box={
+		type = "fixed",
+		fixed = {
+			{-0.375, -0.5, -0.375, 0.375, -0.25, 0.375}, -- NodeBox1
+			{-0.3125, -0.5, -0.3125, 0.3125, 0.375, 0.3125}, -- NodeBox2
+			{-0.4375, 0.0625, -0.4375, 0.4375, 0.4375, 0.4375}, -- NodeBox3
+		}
+	},
+	on_rightclick = function(pos, node, clicker, itemstack)
+		local meta = minetest.get_meta(pos)
+		if itemstack then
+			d(pos)
+			meta:set_string("item", itemstack:get_name())
+			itemstack:take_item()
+			up(pos)
+		else
+			d(pos)
+		end
+		return itemstack
+	end,
+	on_destruct = function(pos)
+		d(pos)
+	end,
+	on_punch = function(pos, node, player, pointed_thing)
+		if player:get_wielded_item():get_definition().groups.axe==1 then
+			local meta=minetest.get_meta(pos)
+			local item=meta:get_string("item")
+			if item then
+				if truCraft.chops[item] then
+					rm(pos)
+					minetest.add_item({x=pos.x,y=pos.y+1,z=pos.z}, truCraft.chops[item])
+					meta:set_string("item", "")
+				end
+			end
+		end
+	end,
+})
+
+minetest.register_lbm({
+	name = "trucraft:fix_ent5",
+	run_at_every_load=true,
+	nodenames = {"trucraft:table2"},
+	action = function(pos, node)
+		up(pos)
+	end,
+})
+
+
+minetest.register_node("trucraft:station2", {
+	description="Advanced Crafting Bench",
+	tiles={"default_steel_block.png^poly_tcmatrix2.png", "default_steel_block.png", "default_steel_block.png^poly_tcstick7.png"},
+	is_ground_content=false,
+	paramtype="light",
+	sunlight_propagates=true,
+	drawtype="nodebox",
+	groups={cracky=3, oddly_breakable_by_hand=3},
+	sounds=default.node_sound_metal_defaults(),
+	selection_box={
+		type = "fixed",
+		fixed = {
+			{-0.375, -0.5, -0.375, 0.375, -0.25, 0.375},
+			{-0.3125, -0.5, -0.3125, 0.3125, 0.375, 0.3125},
+			{-0.4375, 0.0625, -0.4375, 0.4375, 0.4375, 0.4375},
+		}
+	},
+	node_box={
+		type = "fixed",
+		fixed = {
+			{-0.375, -0.5, -0.375, 0.375, -0.25, 0.375},
+			{-0.3125, -0.5, -0.3125, 0.3125, 0.375, 0.3125},
+			{-0.4375, 0.0625, -0.4375, 0.4375, 0.4375, 0.4375},
+		}
+	},
+	on_rightclick = function(pos, node, clicker, itemstack)
+		local advig_data={}
+		local inv=minetest.get_meta(pos):get_inventory()
+		inv:set_list("main", {})
+		inv:set_size("main", 8)
+		inv:set_list("dolg", {})
+		inv:set_size("dolg", 8)
+		
+		if minetest.get_node({x=pos.x, y=pos.y, z=pos.z+1}).name=="trucraft:table2" then
+			local meta=minetest.get_meta({x=pos.x, y=pos.y, z=pos.z+1})
+			inv:add_item("main", meta:get_string("item"))
+		end
+		if minetest.get_node({x=pos.x, y=pos.y, z=pos.z-1}).name=="trucraft:table2" then
+			local meta=minetest.get_meta({x=pos.x, y=pos.y, z=pos.z-1})
+			inv:add_item("main", meta:get_string("item"))
+		if minetest.get_node({x=pos.x+1, y=pos.y, z=pos.z}).name=="trucraft:table2" then
+			local meta=minetest.get_meta({x=pos.x+1, y=pos.y, z=pos.z})
+			inv:add_item("main", meta:get_string("item"))
+		end
+		if minetest.get_node({x=pos.x-1, y=pos.y, z=pos.z}).name=="trucraft:table2" then
+			local meta=minetest.get_meta({x=pos.x-1, y=pos.y, z=pos.z})
+			inv:add_item("main", meta:get_string("item"))  
+		end
+		if minetest.get_node({x=pos.x+1, y=pos.y, z=pos.z+1}).name=="trucraft:table2" then
+			local meta=minetest.get_meta({x=pos.x+1, y=pos.y, z=pos.z+1})
+			inv:add_item("main", meta:get_string("item"))
+		end
+		if minetest.get_node({x=pos.x-1, y=pos.y, z=pos.z-1}).name=="trucraft:table2" then
+			local meta=minetest.get_meta({x=pos.x-1, y=pos.y, z=pos.z-1})
+			inv:add_item("main", meta:get_string("item"))
+		end
+		if minetest.get_node({x=pos.x+1, y=pos.y, z=pos.z-1}).name=="trucraft:table2" then
+			local meta=minetest.get_meta({x=pos.x+1, y=pos.y, z=pos.z-1})
+			inv:add_item("main", meta:get_string("item"))
+		end
+		if minetest.get_node({x=pos.x-1, y=pos.y, z=pos.z+1}).name=="trucraft:table2" then
+			local meta=minetest.get_meta({x=pos.x-1, y=pos.y, z=pos.z+1})
+			inv:add_item("main", meta:get_string("item"))   
+		end
+		
+		inv:set_list("dolg", inv:get_list("main"))
+		for _,v in pairs(truCraft.advanced_crafts) do
+			inv:set_list("main", inv:get_list("dolg"))
+			if inv:contains_item("main", v.item1) then
+				inv:remove_item("main", v.item1)
+				if inv:contains_item("main", v.item2) then
+					inv:remove_item("main", v.item2)
+					if inv:contains_item("main", v.item3) then
+						inv:remove_item("main", v.item3)
+						if inv:contains_item("main", v.item4) then
+							inv:remove_item("main", v.item4)
+							if inv:contains_item("main", v.item5) then
+								inv:remove_item("main", v.item5)
+								if inv:contains_item("main", v.item6) then
+									inv:remove_item("main", v.item6)
+									if inv:contains_item("main", v.item7) then
+										inv:remove_item("main", v.item7)
+										if inv:contains_item("main", v.item8) then
+											minetest.add_item({x=pos.x,y=pos.y+1,z=pos.z}, v.result)
+
+											local meta=minetest.get_meta({x=pos.x, y=pos.y, z=pos.z+1})
+											meta:set_string("item", "")
+											rm({x=pos.x, y=pos.y, z=pos.z+1})
+											
+											local meta=minetest.get_meta({x=pos.x, y=pos.y, z=pos.z-1})
+											meta:set_string("item", "")
+											rm({x=pos.x, y=pos.y, z=pos.z-1})
+											
+											local meta=minetest.get_meta({x=pos.x+1, y=pos.y, z=pos.z})
+											meta:set_string("item", "")
+											rm({x=pos.x+1, y=pos.y, z=pos.z})
+											
+											local meta=minetest.get_meta({x=pos.x-1, y=pos.y, z=pos.z})
+											meta:set_string("item", "")
+											rm({x=pos.x-1, y=pos.y, z=pos.z})
+											
+											local meta=minetest.get_meta({x=pos.x+1, y=pos.y, z=pos.z+1})
+											meta:set_string("item", "")
+											rm({x=pos.x+1, y=pos.y, z=pos.z+1})
+											
+											local meta=minetest.get_meta({x=pos.x-1, y=pos.y, z=pos.z-1})
+											meta:set_string("item", "")
+											rm({x=pos.x-1, y=pos.y, z=pos.z-1})
+											
+											local meta=minetest.get_meta({x=pos.x+1, y=pos.y, z=pos.z-1})
+											meta:set_string("item", "")
+											rm({x=pos.x+1, y=pos.y, z=pos.z-1})
+											
+											local meta=minetest.get_meta({x=pos.x-1, y=pos.y, z=pos.z+1})
+											meta:set_string("item", "")
+											rm({x=pos.x-1, y=pos.y, z=pos.z+1})
+								
+											return
+										end
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end
 	end
 })

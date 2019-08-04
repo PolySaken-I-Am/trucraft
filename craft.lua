@@ -94,8 +94,29 @@ if minetest.get_modpath("unified_inventory") then
 	
 	unified_inventory.register_craft({
 		type="trucraft:leftclick2",
+		items={"default:steel_ingot", "trucraft:table"},
+		output="trucraft:table2",
+		width=1,
+	})
+	
+	unified_inventory.register_craft({
+		type="trucraft:leftclick2",
+		items={"default:steel_ingot", "trucraft:station"},
+		output="trucraft:station2",
+		width=1,
+	})
+	
+	unified_inventory.register_craft({
+		type="trucraft:leftclick2",
 		items={"trucraft:sieve", "default:gravel"},
 		output="default:flint",
+		width=1,
+	})
+	
+	unified_inventory.register_craft({
+		type="trucraft:leftclick2",
+		items={"trucraft:copper_knife", "trucraft:string2"},
+		output="trucraft:string3",
 		width=1,
 	})
 	
@@ -108,6 +129,7 @@ if minetest.get_modpath("unified_inventory") then
 	
 	function truCraft.register_basic_craft(def)
 		table.insert(truCraft.basic_crafts, def)
+		table.insert(truCraft.advanced_crafts, def)
 		unified_inventory.register_craft({
 			type="trucraft:combo",
 			items={def.item1, def.item2, def.item3, def.item4},
@@ -133,20 +155,77 @@ if minetest.get_modpath("unified_inventory") then
 			width=1,
 		})
 	end
+	
+	unified_inventory.register_craft_type("trucraft:leftclick4", {
+		description="Anvil",
+		icon="default_stone.png^poly_tcmatrix3.png",
+		width=1,
+		height=2,
+	})
+	
+	function truCraft.register_beat(def)
+		truCraft.anvil[def.item]=def.result
+		unified_inventory.register_craft({
+		type="trucraft:leftclick4",
+			items={"group:hammer", def.item},
+			output=def.result,
+			width=1,
+		})
+	end
+	
+	function truCraft.register_beat2(def)
+		truCraft.anvil2[def.item]=def.result
+		unified_inventory.register_craft({
+		type="trucraft:leftclick4",
+			items={"group:hammer2", def.item},
+			output=def.result,
+			width=1,
+		})
+	end
+	
+	unified_inventory.register_craft_type("trucraft:combo2", {
+		description="Advanced Combination",
+		icon="default_steel_block.png^poly_tcmatrix2.png",
+		width=3,
+		height=3,
+	})
+	
+	function truCraft.register_advanced_craft(def)
+		table.insert(truCraft.advanced_crafts, def)
+		unified_inventory.register_craft({
+			type="trucraft:combo2",
+			items={def.item1, def.item2, def.item3, def.item4, "", def.item5, def.item6, def.item7, def.item8},
+			output=def.result,
+			width=3,
+			height=3
+		})
+	end
 else
 
 	function truCraft.register_basic_craft(def)
 		table.insert(truCraft.basic_crafts, def)
+		table.insert(truCraft.advanced_crafts, def)
+	end
+	
+	function truCraft.register_advanced_craft(def)
+		table.insert(truCraft.advanced_crafts, def)
 	end
 	
 	function truCraft.register_chop(def)
 		truCraft.chops[def.item]=def.result
 	end
 	
+	function truCraft.register_beat(def)
+		truCraft.anvil[def.item]=def.result
+	end
+	
 end
 
 truCraft.basic_crafts={}
+truCraft.advanced_crafts={}
 truCraft.chops={}
+truCraft.anvil={}
+truCraft.anvil2={}
 
 
 truCraft.register_basic_craft({
@@ -191,10 +270,50 @@ truCraft.register_basic_craft({
 
 truCraft.register_basic_craft({
 	item1="trucraft:rock_stone", 
+	item2="default:stone", 
+	item3="default:stone", 
+	item4="trucraft:rock_stone",
+	result="trucraft:anvilstone"
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:rock_stone", 
 	item2="trucraft:rock_stone", 
 	item3="default:flint", 
 	item4="default:flint",
 	result="trucraft:furnacetop"
+})
+
+truCraft.register_basic_craft({
+	item1="", 
+	item2="trucraft:shaft", 
+	item3="default:flint", 
+	item4="flowers:tulip",
+	result="trucraft:shaft2"
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:rock_stone", 
+	item2="trucraft:rock_stone", 
+	item3="trucraft:rock_stone", 
+	item4="default:tin_ingot",
+	result="trucraft:rock_reinforced"
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:rock_reinforced", 
+	item2="trucraft:rock_reinforced", 
+	item3="trucraft:string3", 
+	item4="trucraft:shaft2",
+	result="trucraft:stone_mallet"
+})
+
+truCraft.register_basic_craft({
+	item1="default:tin_ingot", 
+	item2="default:copper_ingot", 
+	item3="default:flint", 
+	item4="",
+	result="trucraft:bronze"
 })
 
 truCraft.register_chop({
@@ -220,4 +339,170 @@ truCraft.register_chop({
 truCraft.register_chop({
 	item="default:jungletree",
 	result="default:junglewood 2"
+})
+
+truCraft.register_beat({
+	item="default:copper_ingot",
+	result="trucraft:copper_blade"
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:shaft", 
+	item2="trucraft:copper_blade", 
+	item3="", 
+	item4="trucraft:string2",
+	result="trucraft:copper_knife"
+})
+
+minetest.register_craft({
+	type="cooking",
+	output="default:bronze_ingot",
+	recipe="trucraft:bronze"
+})
+
+truCraft.register_beat({
+	item="default:bronze_ingot",
+	result="trucraft:bronze_plate"
+})
+
+truCraft.register_beat({
+	item="trucraft:bronze_plate",
+	result="trucraft:bronze_wedge"
+})
+
+truCraft.register_beat({
+	item="trucraft:bronze_wedge",
+	result="trucraft:bronze_hook"
+})
+
+truCraft.register_beat({
+	item="trucraft:bronze_hook",
+	result="trucraft:bronze_blade"
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:shaft2", 
+	item2="trucraft:bronze_plate", 
+	item3="", 
+	item4="trucraft:string3",
+	result="default:shovel_bronze"
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:shaft2", 
+	item2="trucraft:bronze_wedge", 
+	item3="", 
+	item4="trucraft:string3",
+	result="default:axe_bronze"
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:shaft2", 
+	item2="trucraft:bronze_hook", 
+	item3="trucraft:bronze_hook", 
+	item4="trucraft:string3",
+	result="default:pick_bronze"
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:shaft2", 
+	item2="trucraft:bronze_blade", 
+	item3="", 
+	item4="trucraft:string3",
+	result="default:sword_bronze"
+})
+
+truCraft.register_advanced_craft({
+	item1="trucraft:shaft2", 
+	item2="trucraft:string3", 
+	item3="default:steel_ingot", 
+	item4="default:steel_ingot",
+	item5="trucraft:rock_stone", 
+	item6="trucraft:rock_stone", 
+	item7="default:steel_ingot", 
+	item8="default:steel_ingot",
+	result="trucraft:steel_mallet"
+})
+
+truCraft.register_beat2({
+	item="default:steel_ingot",
+	result="trucraft:steel_plate"
+})
+
+truCraft.register_beat2({
+	item="trucraft:steel_plate",
+	result="trucraft:steel_wedge"
+})
+
+truCraft.register_beat2({
+	item="trucraft:steel_wedge",
+	result="trucraft:steel_hook"
+})
+
+truCraft.register_beat2({
+	item="trucraft:steel_hook",
+	result="trucraft:steel_blade"
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:shaft2", 
+	item2="trucraft:steel_plate", 
+	item3="", 
+	item4="trucraft:string3",
+	result="default:shovel_steel"
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:shaft2", 
+	item2="trucraft:steel_wedge", 
+	item3="", 
+	item4="trucraft:string3",
+	result="default:axe_steel"
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:shaft2", 
+	item2="trucraft:steel_hook", 
+	item3="trucraft:steel_hook", 
+	item4="trucraft:string3",
+	result="default:pick_steel"
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:shaft2", 
+	item2="trucraft:steel_blade", 
+	item3="", 
+	item4="trucraft:string3",
+	result="default:sword_steel"
+})
+
+truCraft.register_beat({
+	item="default:grass_1",
+	result="trucraft:grass_lump"
+})
+
+truCraft.register_beat({
+	item="default:grass_2",
+	result="trucraft:grass_lump"
+})
+
+truCraft.register_beat({
+	item="default:grass_3",
+	result="trucraft:grass_lump"
+})
+
+truCraft.register_beat({
+	item="default:grass_4",
+	result="trucraft:grass_lump"
+})
+
+truCraft.register_beat({
+	item="default:grass_5",
+	result="trucraft:grass_lump"
+})
+
+minetest.register_craft({
+	type="cooking",
+	output="trucraft:glue",
+	recipe="trucraft:grass_lump"
 })
