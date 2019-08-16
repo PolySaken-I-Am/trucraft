@@ -447,7 +447,7 @@ truCraft.register_beat2({
 truCraft.register_basic_craft({
 	item1="trucraft:shaft2", 
 	item2="trucraft:steel_plate", 
-	item3="", 
+	item3="trucraft:glue", 
 	item4="trucraft:string3",
 	result="default:shovel_steel"
 })
@@ -455,23 +455,24 @@ truCraft.register_basic_craft({
 truCraft.register_basic_craft({
 	item1="trucraft:shaft2", 
 	item2="trucraft:steel_wedge", 
-	item3="", 
+	item3="trucraft:glue", 
 	item4="trucraft:string3",
 	result="default:axe_steel"
 })
 
-truCraft.register_basic_craft({
+truCraft.register_advanced_craft({
 	item1="trucraft:shaft2", 
 	item2="trucraft:steel_hook", 
 	item3="trucraft:steel_hook", 
 	item4="trucraft:string3",
-	result="default:pick_steel"
+	result="default:pick_steel",
+	item5="trucraft:glue"
 })
 
 truCraft.register_basic_craft({
 	item1="trucraft:shaft2", 
 	item2="trucraft:steel_blade", 
-	item3="", 
+	item3="trucraft:glue", 
 	item4="trucraft:string3",
 	result="default:sword_steel"
 })
@@ -501,8 +502,49 @@ truCraft.register_beat({
 	result="trucraft:grass_lump"
 })
 
+truCraft.register_beat({
+	item="default:diamond",
+	result="trucraft:grit"
+})
+
 minetest.register_craft({
 	type="cooking",
 	output="trucraft:glue",
 	recipe="trucraft:grass_lump"
+})
+
+truCraft.register_advanced_craft({
+	item1="trucraft:glue", 
+	item2="trucraft:glue", 
+	item3="", 
+	item4="default:steel_ingot",
+	item5="trucraft:grit", 
+	item6="trucraft:grit", 
+	item7="default:steel_ingot", 
+	item8="default:axe_steel",
+	result="trucraft:axe_steel"
+})
+
+truCraft.register_advanced_craft({
+	item1="trucraft:glue", 
+	item2="trucraft:glue", 
+	item3="", 
+	item4="default:steel_ingot",
+	item5="trucraft:grit", 
+	item6="trucraft:grit", 
+	item7="default:steel_ingot", 
+	item8="default:pick_steel",
+	result="trucraft:pick_steel"
+})
+
+truCraft.register_advanced_craft({
+	item1="trucraft:glue", 
+	item2="trucraft:glue", 
+	item3="", 
+	item4="default:steel_ingot",
+	item5="trucraft:grit", 
+	item6="trucraft:grit", 
+	item7="default:steel_ingot", 
+	item8="default:sword_steel",
+	result="trucraft:sword_steel"
 })

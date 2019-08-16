@@ -59,3 +59,45 @@ minetest.register_tool("trucraft:steel_mallet", {
 	groups = {hammer2=10, hammer=20},
 	sound = {breaks = "default_tool_breaks"},
 })
+
+minetest.register_tool("trucraft:pick_steel", {
+	description = "Sharp Steel Pickaxe",
+	inventory_image = "default_tool_steelpick.png^poly_tcpickd.png",
+	tool_capabilities = {
+		full_punch_interval = 1.0,
+		max_drop_level=1,
+		groupcaps={
+			cracky = {times={[1]=2.50, [2]=0.80, [3]=0.40}, uses=35, maxlevel=3},
+		},
+		damage_groups = {fleshy=6},
+	},
+	sound = {breaks = "default_tool_breaks"},
+})
+
+minetest.register_tool("trucraft:axe_steel", {
+	description = "Sharp Steel Axe",
+	inventory_image = "default_tool_steelaxe.png^poly_tcaxed.png",
+	tool_capabilities = {
+		full_punch_interval = 1.0,
+		max_drop_level=1,
+		groupcaps={
+			choppy={times={[1]=1.25, [2]=0.70, [3]=0.50}, uses=35, maxlevel=3},
+		},
+		damage_groups = {fleshy=6},
+	},
+	sound = {breaks = "default_tool_breaks"},
+})
+
+minetest.register_tool("trucraft:sword_steel", {
+	description = "Sharp Steel Sword",
+	inventory_image = "default_tool_steelsword.png^poly_tcswordd.png",
+	tool_capabilities = {
+		full_punch_interval = 0.8,
+		max_drop_level=1,
+		groupcaps={
+			snappy={times={[1]=0.5, [2]=0.10, [3]=0.5}, uses=45, maxlevel=3},
+		},
+		damage_groups = {fleshy=8},
+	},
+	sound = {breaks = "default_tool_breaks"},
+})

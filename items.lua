@@ -138,3 +138,8 @@ minetest.register_craftitem("trucraft:glue", {
 	description="Plant Glue",
 	inventory_image="poly_tclump2.png",
 })
+
+minetest.register_craftitem("trucraft:grit", {
+	description="Diamond Grit",
+	inventory_image="poly_tcdiamondd.png",
+})
