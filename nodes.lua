@@ -374,7 +374,6 @@ minetest.override_item("default:jungletree", {
 })
 
 minetest.override_item("default:gravel", {
-    groups = {tree = 1, choppy = 3, oddly_breakable_by_hand = 0, flammable = 3},
 	on_punch = function(pos, node, player, pointed_thing)
 		if player:get_wielded_item():get_name() == "trucraft:sieve" then
 			minetest.set_node(pos, {name="air"})
