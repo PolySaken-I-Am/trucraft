@@ -129,6 +129,12 @@ minetest.register_craftitem("trucraft:steel_blade", {
 	inventory_image="poly_tcbronzeb.png^[colorize:#bbffff90",
 })
 
+
+minetest.register_craftitem("trucraft:steel_rod", {
+	description="Steel Rod",
+	inventory_image="default_stick.png^[colorize:#bbffff90",
+})
+
 minetest.register_craftitem("trucraft:grass_lump", {
 	description="Plant Mush",
 	inventory_image="poly_tclump.png",

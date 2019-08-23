@@ -11,7 +11,7 @@ if minetest.get_modpath("unified_inventory") then
 	unified_inventory.register_craft({
 		type="trucraft:finding",
 		items={"default:dirt_with_grass"},
-		output="trucraft:stick",
+		output="default:stick",
 		width=1,
 	})
 	
@@ -66,7 +66,7 @@ if minetest.get_modpath("unified_inventory") then
 	
 	unified_inventory.register_craft({
 		type="trucraft:leftclick",
-		items={"trucraft:stick"},
+		items={"default:stick"},
 		output="trucraft:shaft",
 		width=1,
 	})
@@ -133,6 +133,13 @@ if minetest.get_modpath("unified_inventory") then
 		unified_inventory.register_craft({
 			type="trucraft:combo",
 			items={def.item1, def.item2, def.item3, def.item4},
+			output=def.result,
+			width=2,
+			height=2
+		})
+		unified_inventory.register_craft({
+			type="trucraft:combo2",
+			items={def.item1, def.item2, def.item3, def.item4, "", "", "", "", ""},
 			output=def.result,
 			width=2,
 			height=2
@@ -254,9 +261,9 @@ truCraft.register_basic_craft({
 
 truCraft.register_basic_craft({
 	item1="trucraft:rock_stone", 
-	item2="trucraft:stick", 
-	item3="trucraft:stick", 
-	item4="trucraft:stick",
+	item2="default:stick", 
+	item3="default:stick", 
+	item4="default:stick",
 	result="trucraft:fire"
 })
 
@@ -444,6 +451,11 @@ truCraft.register_beat2({
 	result="trucraft:steel_blade"
 })
 
+truCraft.register_beat2({
+	item="trucraft:steel_blade",
+	result="trucraft:steel_rod"
+})
+
 truCraft.register_basic_craft({
 	item1="trucraft:shaft2", 
 	item2="trucraft:steel_plate", 
@@ -547,4 +559,17 @@ truCraft.register_advanced_craft({
 	item7="default:steel_ingot", 
 	item8="default:sword_steel",
 	result="trucraft:sword_steel"
+})
+
+
+truCraft.register_advanced_craft({
+	item1="default:stick", 
+	item2="trucraft:string3", 
+	item3="default:stick", 
+	item4="trucraft:fabric",
+	item5="trucraft:fabric", 
+	item6="default:stick", 
+	item7="trucraft:fabric", 
+	item8="default:stick",
+	result="trucraft:drawer"
 })

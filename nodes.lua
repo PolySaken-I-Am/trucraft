@@ -123,10 +123,10 @@ minetest.register_node("trucraft:stick", {
 	sunlight_propagates=true,
 	drawtype="nodebox",
 	paramtype="light",
-	groups={choppy=3, oddly_breakable_by_hand=3, stick=1},
+	groups={choppy=3, oddly_breakable_by_hand=3, stick=1, not_in_creative_inventory=1},
 	sounds=default.node_sound_wood_defaults(),
 	inventory_image="default_stick.png",
-	drop="trucraft:stick",
+	drop="default:stick",
 	selection_box={
 		type = "fixed",
 		fixed = {
@@ -139,11 +139,6 @@ minetest.register_node("trucraft:stick", {
 			{-0.5, -0.5, -0.0625, 0.5, -0.375, 0.0625},
 		}
 	},
-	on_use = function(itemstack, player, pointed_thing)
-		player:get_inventory():add_item("main", "trucraft:shaft")
-		itemstack:take_item()
-		return itemstack
-	end,
 })
 
 minetest.register_decoration({
@@ -172,7 +167,7 @@ minetest.register_node("trucraft:aca_stick", {
 	paramtype="light",
 	groups={choppy=3, oddly_breakable_by_hand=3, stick=1, not_in_creative_inventory=1},
 	sounds=default.node_sound_wood_defaults(),
-	drop="trucraft:stick",
+	drop="default:stick",
 	selection_box={
 		type = "fixed",
 		fixed = {
@@ -213,7 +208,7 @@ minetest.register_node("trucraft:asp_stick", {
 	paramtype="light",
 	groups={choppy=3, oddly_breakable_by_hand=3, stick=1, not_in_creative_inventory=1},
 	sounds=default.node_sound_wood_defaults(),
-	drop="trucraft:stick",
+	drop="default:stick",
 	selection_box={
 		type = "fixed",
 		fixed = {
@@ -296,6 +291,14 @@ minetest.register_node("trucraft:string3", {
 			{-0.5, -0.4375, -0.0625, 0.5, -0.5, 0.0625},
 		}
 	}
+})
+
+minetest.override_item("default:stick", {
+    on_use = function(itemstack, player, pointed_thing)
+		player:get_inventory():add_item("main", "trucraft:shaft")
+		itemstack:take_item()
+		return itemstack
+	end,
 })
 
 minetest.override_item("default:pine_tree", {
@@ -409,7 +412,7 @@ local up = function(pos)
 	local meta = minetest.get_meta(pos)
 	if meta:get_string("item") ~= "" then
 		pos.y = pos.y + 0.69
-		local texture = meta:get_string("item")
+		local texture = ItemStack(meta:get_string("item")):get_name()
 		local ent=minetest.add_entity(pos, "trucraft:floater")
 		ent:set_properties({textures={texture}})
 	end
@@ -441,7 +444,7 @@ local up2 = function(pos)
 	local meta = minetest.get_meta(pos)
 	if meta:get_string("item") ~= "" then
 		pos.y = pos.y + 0.005
-		local texture = meta:get_string("item")
+		local texture = ItemStack(meta:get_string("item")):get_name()
 		local ent=minetest.add_entity(pos, "trucraft:floater")
 		ent:set_properties({textures={texture}})
 		ent:set_properties({visual_size={x=.17,y=.17}})
@@ -474,7 +477,7 @@ local up3 = function(pos)
 	local meta = minetest.get_meta(pos)
 	if meta:get_string("item") ~= "" then
 		pos.y = pos.y + 0.17
-		local texture = meta:get_string("item")
+		local texture = ItemStack(meta:get_string("item")):get_name()
 		local ent=minetest.add_entity(pos, "trucraft:floater")
 		ent:set_properties({textures={texture}})
 	end
@@ -577,7 +580,7 @@ minetest.register_node("trucraft:station", {
 	sunlight_propagates=true,
 	drawtype="nodebox",
 	groups={cracky=3, oddly_breakable_by_hand=3},
-	sounds=default.node_sound_metal_defaults(),
+	sounds=default.node_sound_wood_defaults(),
 	selection_box={
 		type = "fixed",
 		fixed = {
@@ -673,7 +676,7 @@ minetest.register_node("trucraft:fire", {
 	sunlight_propagates=true,
 	drawtype="nodebox",
 	groups={cracky=3, oddly_breakable_by_hand=3},
-	sounds=default.node_sound_metal_defaults(),
+	sounds=default.node_sound_stone_defaults(),
 	selection_box = {
 		type = "fixed",
 		fixed = {
@@ -833,7 +836,7 @@ minetest.register_node("trucraft:furnaceplate", {
 	sunlight_propagates=true,
 	drawtype="nodebox",
 	groups={cracky=3, oddly_breakable_by_hand=3},
-	sounds=default.node_sound_metal_defaults(),
+	sounds=default.node_sound_stone_defaults(),
 	selection_box = {
 		type = "fixed",
 		fixed = {
@@ -895,8 +898,9 @@ minetest.register_node("trucraft:furnaceplate2", {
 	paramtype="light",
 	sunlight_propagates=true,
 	drawtype="nodebox",
+	light_source=default.LIGHT_MAX,
 	groups={cracky=3, oddly_breakable_by_hand=3, not_in_creative_inventory=1},
-	sounds=default.node_sound_metal_defaults(),
+	sounds=default.node_sound_stone_defaults(),
 	selection_box = {
 		type = "fixed",
 		fixed = {
@@ -981,7 +985,7 @@ minetest.register_node("trucraft:furnacetop", {
 	sunlight_propagates=true,
 	drawtype="nodebox",
 	groups={cracky=3, oddly_breakable_by_hand=3},
-	sounds=default.node_sound_metal_defaults(),
+	sounds=default.node_sound_stone_defaults(),
 	selection_box = {
 		type = "fixed",
 		fixed = {
@@ -1091,7 +1095,7 @@ minetest.register_node("trucraft:anvilstone", {
 	sunlight_propagates=true,
 	drawtype="nodebox",
 	groups={cracky=3, oddly_breakable_by_hand=3},
-	sounds=default.node_sound_metal_defaults(),
+	sounds=default.node_sound_stone_defaults(),
 	selection_box={
 		type = "fixed",
 		fixed = {
@@ -1402,4 +1406,131 @@ minetest.register_node("trucraft:station2", {
 		end
 	end
 	end
+})
+
+local rm4 = function(pos)
+	local objs = minetest.env:get_objects_inside_radius({x=pos.x,y=pos.y+0.5,z=pos.z}, 0.5)
+	if objs then
+		for _, obj in ipairs(objs) do
+			if obj and obj:get_luaentity() and obj:get_luaentity().name == "trucraft:floater" then
+				obj:remove()
+			end
+		end
+	end
+end
+
+local up4 = function(pos)
+	rm4(pos)
+	local meta = minetest.get_meta(pos)
+	if meta:get_string("item") ~= "" then
+		pos.y = pos.y + 0.49
+		local texture = ItemStack(meta:get_string("item")):get_name()
+		local ent=minetest.add_entity(pos, "trucraft:floater")
+		ent:set_properties({textures={texture}})
+	end
+end
+
+
+local d4 = function(pos)
+	local meta = minetest.get_meta(pos)
+	if meta:get_string("item") ~= "" then
+		minetest.add_item({x=pos.x,y=pos.y+0.5,z=pos.z}, meta:get_string("item").." "..meta:get_int("count"))
+		meta:set_string("item","")
+	end
+	rm4(pos)
+end
+
+minetest.register_node("trucraft:drawer", {
+	description="Storage Hamper",
+	tiles={"poly_tccrate.png"},
+	is_ground_content=false,
+	paramtype="light",
+	sunlight_propagates=true,
+	drawtype="nodebox",
+	groups={cracky=3, oddly_breakable_by_hand=3},
+	sounds=default.node_sound_metal_defaults(),
+	selection_box={
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+		}
+	},
+	node_box={
+		type = "fixed",
+		fixed = {
+			{-0.4375, 0.375, -0.4375, -0.125, 0.4375, 0.4375}, -- NodeBox10
+			{-0.4375, -0.4375, -0.4375, 0.4375, 0.4375, -0.375}, -- NodeBox11
+			{-0.4375, -0.4375, 0.375, 0.4375, 0.4375, 0.4375}, -- NodeBox12
+			{-0.4375, -0.4375, -0.4375, -0.375, 0.4375, 0.4375}, -- NodeBox13
+			{0.375, -0.4375, -0.4375, 0.4375, 0.4375, 0.4375}, -- NodeBox14
+			{0.125, 0.375, -0.4375, 0.375, 0.4375, 0.4375}, -- NodeBox15
+			{-0.375, 0.375, -0.4375, 0.375, 0.4375, -0.125}, -- NodeBox16
+			{-0.375, 0.375, 0.125, 0.375, 0.4375, 0.4375}, -- NodeBox17
+			{-0.4375, -0.4375, -0.4375, 0.4375, -0.375, 0.4375}, -- NodeBox18
+			{-0.5, -0.5, -0.5, -0.375, 0.5, -0.375}, -- NodeBox19
+			{0.375, -0.5, -0.5, 0.5, 0.5, -0.375}, -- NodeBox20
+			{0.375, -0.5, 0.375, 0.5, 0.5, 0.5}, -- NodeBox21
+			{-0.5, -0.5, 0.375, -0.375, 0.5, 0.5}, -- NodeBox22
+			{-0.5, 0.375, -0.5, -0.375, 0.5, 0.5}, -- NodeBox23
+			{0.375, 0.375, -0.5, 0.5, 0.5, 0.5}, -- NodeBox24
+			{-0.5, 0.375, 0.375, 0.5, 0.5, 0.5}, -- NodeBox25
+			{-0.5, 0.375, -0.5, 0.5, 0.5, -0.375}, -- NodeBox26
+			{-0.5, -0.5, -0.5, 0.5, -0.375, -0.375}, -- NodeBox27
+			{-0.5, -0.5, 0.375, 0.5, -0.375, 0.5}, -- NodeBox28
+			{-0.5, -0.5, -0.5, -0.375, -0.375, 0.5}, -- NodeBox29
+			{0.375, -0.5, -0.5, 0.5, -0.375, 0.5}, -- NodeBox30
+		}
+	},
+	on_rightclick = function(pos, node, clicker, itemstack)
+		local meta = minetest.get_meta(pos)
+		local inv=clicker:get_inventory()
+		if meta:get_string("item") and meta:get_string("item") ~= "" and meta:get_int("count") and meta:get_int("count") > 0 then
+			if clicker:get_wielded_item():get_name()==meta:get_string("item") then
+				meta:set_int("count", meta:get_int("count")+itemstack:get_count())
+				meta:set_string("infotext", meta:get_string("item").." x "..meta:get_int("count"))
+				return ""
+			end
+		else
+			meta:set_string("item", itemstack:get_name())
+			meta:set_int("count", itemstack:get_count())
+			meta:set_string("infotext", meta:get_string("item").." x "..meta:get_int("count"))
+			up4(pos)
+			return ""
+		end
+	end,
+	on_destruct = function(pos)
+		local meta = minetest.get_meta(pos)
+		if meta:get_string("item") and meta:get_string("item") ~= "" and meta:get_int("count") and meta:get_int("count") > 0 then
+			minetest.add_item({x=pos.x,y=pos.y+1,z=pos.z}, ItemStack(meta:get_string("item").." "..meta:get_int("count")))
+			meta:set_int("count", 0)
+			meta:set_string("item", "")
+			meta:set_string("infotext", meta:get_string("item").." x "..meta:get_int("count"))
+			up4(pos)
+		end
+	end,
+	on_punch = function(pos, node, player, pointed_thing)
+		local meta = minetest.get_meta(pos)
+		local inv=player:get_inventory()
+		if inv:room_for_item("main", meta:get_string("item")) then
+			inv:add_item("main", meta:get_string("item"))
+			if meta:get_int("count") > 1 then
+				meta:set_int("count", meta:get_int("count")-1)
+				meta:set_string("infotext", meta:get_string("item").." x "..meta:get_int("count"))
+			else
+				meta:set_int("count", 0)
+				meta:set_string("item", "")
+				meta:set_string("infotext", meta:get_string("item").." x "..meta:get_int("count"))
+				up4(pos)
+			end
+		end
+	end,
+})
+
+minetest.register_lbm({
+	name = "trucraft:fix_ent4",
+	run_at_every_load=true,
+	nodenames = {"trucraft:drawer"},
+	action = function(pos, node)
+		up4(pos)
+	end,
 })
