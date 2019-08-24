@@ -501,7 +501,7 @@ minetest.register_node("trucraft:table", {
 	sunlight_propagates=true,
 	drawtype="nodebox",
 	groups={cracky=3, oddly_breakable_by_hand=3},
-	sounds=default.node_sound_metal_defaults(),
+	sounds=default.node_sound_wood_defaults(),
 	selection_box={
 		type = "fixed",
 		fixed = {
@@ -557,7 +557,7 @@ minetest.register_node("trucraft:table", {
 minetest.register_lbm({
 	name = "trucraft:fix_ent",
 	run_at_every_load=true,
-	nodenames = {"trucraft:table"},
+	nodenames = {"trucraft:table", "trucraft:rack"},
 	action = function(pos, node)
 		up(pos)
 	end,
@@ -1533,4 +1533,117 @@ minetest.register_lbm({
 	action = function(pos, node)
 		up4(pos)
 	end,
+})
+
+
+
+minetest.register_node("trucraft:rack", {
+	description="Drying Rack",
+	tiles={"default_wood.png^[colorize:#66430d90"},
+	is_ground_content=false,
+	paramtype="light",
+	sunlight_propagates=true,
+	drawtype="nodebox",
+	groups={cracky=3, oddly_breakable_by_hand=3},
+	sounds=default.node_sound_wood_defaults(),
+	selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.0625, 0.5, -0.375, 0.0625}, -- NodeBox1
+			{0.375, -0.5, -0.5, 0.5, -0.375, 0.5}, -- NodeBox2
+			{-0.5, -0.5, -0.5, -0.375, -0.375, 0.5}, -- NodeBox3
+			{-0.5, -0.5, -0.0625, -0.375, 1.1875, 0.0625}, -- NodeBox4
+			{0.375, -0.5, -0.0625, 0.5, 1.1875, 0.0625}, -- NodeBox5
+			{-0.5, 1.0625, -0.0625, 0.5, 1.1875, 0.0625}, -- NodeBox6
+			{-0.5, 0.25, -0.0625, 0.5, 0.375, 0.0625}, -- NodeBox7
+		}
+	},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.0625, 0.5, -0.375, 0.0625}, -- NodeBox1
+			{0.375, -0.5, -0.5, 0.5, -0.375, 0.5}, -- NodeBox2
+			{-0.5, -0.5, -0.5, -0.375, -0.375, 0.5}, -- NodeBox3
+			{-0.5, -0.5, -0.0625, -0.375, 1.1875, 0.0625}, -- NodeBox4
+			{0.375, -0.5, -0.0625, 0.5, 1.1875, 0.0625}, -- NodeBox5
+			{-0.5, 1.0625, -0.0625, 0.5, 1.1875, 0.0625}, -- NodeBox6
+			{-0.5, 0.25, -0.0625, 0.5, 0.375, 0.0625}, -- NodeBox7
+		}
+	},
+	on_rightclick = function(pos, node, clicker, itemstack)
+		local meta = minetest.get_meta(pos)
+		if itemstack then
+			local result=truCraft.rack[itemstack:get_name()]
+			d(pos)
+			meta:set_int("cooktime", 0)
+			meta:set_int("cooktime_elapsed", 0)
+			meta:set_string("result", "")
+			meta:set_string("infotext", "")
+			if result and result.item and ItemStack(result.item):get_name() then
+				meta:set_string("result", ItemStack(result.result):get_name())
+				meta:set_string("cooking", "true")
+				meta:set_int("cooktime", tonumber(result.time)*10)
+				meta:set_int("cooktime_elapsed", 1)
+				meta:set_string("item", itemstack:get_name())
+				itemstack:take_item()
+				local timer=minetest.get_node_timer(pos)
+				timer:set(1, 0)
+				up(pos)
+			end
+		else
+			d(pos)
+			meta:set_string("cooking", "false")
+			meta:set_int("cooktime", 0)
+			meta:set_int("cooktime_elapsed", 0)
+			meta:set_string("result", "")
+			meta:set_string("infotext", "")
+		end
+		return itemstack
+	end,
+	on_destruct = function(pos)
+		local meta = minetest.get_meta(pos)
+		d(pos)
+	end,
+	on_construct = function(pos)
+		local meta=minetest.get_meta(pos)
+		meta:set_string("fire", "false")
+		meta:set_int("looptime", 0)
+		meta:set_int("calltime", 0)
+		local timer=minetest.get_node_timer(pos)
+		timer:set(1, 0)
+	end,
+	on_timer = function(pos, elapsed)
+		local meta=minetest.get_meta(pos)
+		meta:set_int("looptime", meta:get_int("looptime")+1)
+		if meta:get_int("looptime") > meta:get_int("calltime") then
+			meta:set_string("fire", "false")
+			meta:set_int("looptime", 0)
+			meta:set_int("calltime", 0)
+		end
+		if meta:get_string("cooking")=="true" then
+			meta:set_string("infotext", "Progress: "..meta:get_int("cooktime_elapsed").."/"..meta:get_int("cooktime"))
+			meta:set_int("cooktime_elapsed", meta:get_int("cooktime_elapsed")+1)
+			if meta:get_int("cooktime_elapsed")>meta:get_int("cooktime") then
+				meta:set_string("item", meta:get_string("result"))
+				up(pos)
+				meta:set_string("cooking", "false")
+				meta:set_int("cooktime", 0)
+				meta:set_int("cooktime_elapsed", 0)
+				meta:set_string("result", "")
+				meta:set_string("infotext", "finished")
+			end
+		end
+		local timer=minetest.get_node_timer(pos)
+		timer:set(1, 0)
+	end
+})
+
+minetest.register_node("trucraft:wood", {
+	description = "Treated Wood",
+	paramtype2 = "facedir",
+	place_param2 = 0,
+	tiles = {"default_wood.png^[colorize:#66430d90"},
+	is_ground_content = false,
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, wood = 1},
+	sounds = default.node_sound_wood_defaults(),
 })

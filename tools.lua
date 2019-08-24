@@ -61,7 +61,7 @@ minetest.register_tool("trucraft:steel_mallet", {
 })
 
 minetest.register_tool("trucraft:pick_steel", {
-	description = "Sharp Steel Pickaxe",
+	description = "Enhanced Steel Pickaxe",
 	inventory_image = "default_tool_steelpick.png^poly_tcpickd.png",
 	tool_capabilities = {
 		full_punch_interval = 1.0,
@@ -75,7 +75,7 @@ minetest.register_tool("trucraft:pick_steel", {
 })
 
 minetest.register_tool("trucraft:axe_steel", {
-	description = "Sharp Steel Axe",
+	description = "Enhanced Steel Axe",
 	inventory_image = "default_tool_steelaxe.png^poly_tcaxed.png",
 	tool_capabilities = {
 		full_punch_interval = 1.0,
@@ -89,7 +89,7 @@ minetest.register_tool("trucraft:axe_steel", {
 })
 
 minetest.register_tool("trucraft:sword_steel", {
-	description = "Sharp Steel Sword",
+	description = "Enhanced Steel Sword",
 	inventory_image = "default_tool_steelsword.png^poly_tcswordd.png",
 	tool_capabilities = {
 		full_punch_interval = 0.8,

@@ -149,3 +149,18 @@ minetest.register_craftitem("trucraft:grit", {
 	description="Diamond Grit",
 	inventory_image="poly_tcdiamondd.png",
 })
+
+minetest.register_craftitem("trucraft:coal_dust", {
+	description="Coal Grit",
+	inventory_image="poly_tccoald.png",
+})
+
+minetest.register_craftitem("trucraft:polymer", {
+	description="Plastic Substrate",
+	inventory_image="poly_tclump3.png",
+})
+
+minetest.register_craftitem("trucraft:plastic", {
+	description="Plastic Sheet",
+	inventory_image="poly_tclump4.png",
+})

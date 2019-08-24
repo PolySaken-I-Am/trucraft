@@ -127,6 +127,13 @@ if minetest.get_modpath("unified_inventory") then
 		height=2,
 	})
 	
+	unified_inventory.register_craft_type("trucraft:rack", {
+		description="Drying Rack",
+		icon="poly_tcrack.png",
+		width=1,
+		height=1,
+	})
+	
 	function truCraft.register_basic_craft(def)
 		table.insert(truCraft.basic_crafts, def)
 		table.insert(truCraft.advanced_crafts, def)
@@ -207,6 +214,16 @@ if minetest.get_modpath("unified_inventory") then
 			height=3
 		})
 	end
+	
+	function truCraft.register_dry(def)
+		truCraft.rack[def.item]=def
+		unified_inventory.register_craft({
+		type="trucraft:rack",
+			items={def.item},
+			output=def.result,
+			width=1,
+		})
+	end
 else
 
 	function truCraft.register_basic_craft(def)
@@ -226,6 +243,10 @@ else
 		truCraft.anvil[def.item]=def.result
 	end
 	
+	function truCraft.register_dry(def)
+		truCraft.rack[def.item]=def
+	end
+	
 end
 
 truCraft.basic_crafts={}
@@ -233,6 +254,7 @@ truCraft.advanced_crafts={}
 truCraft.chops={}
 truCraft.anvil={}
 truCraft.anvil2={}
+truCraft.rack={}
 
 
 truCraft.register_basic_craft({
@@ -346,6 +368,31 @@ truCraft.register_chop({
 truCraft.register_chop({
 	item="default:jungletree",
 	result="default:junglewood 2"
+})
+
+truCraft.register_chop({
+	item="default:wood",
+	result="default:stick 2"
+})
+
+truCraft.register_chop({
+	item="default:acacia_wood",
+	result="default:stick 2"
+})
+
+truCraft.register_chop({
+	item="default:aspen_wood",
+	result="default:stick 2"
+})
+
+truCraft.register_chop({
+	item="default:pine_wood",
+	result="default:stick 2"
+})
+
+truCraft.register_chop({
+	item="default:junglewood",
+	result="default:stick 2"
 })
 
 truCraft.register_beat({
@@ -519,6 +566,11 @@ truCraft.register_beat({
 	result="trucraft:grit"
 })
 
+truCraft.register_beat({
+	item="default:coal_lump",
+	result="trucraft:coal_dust"
+})
+
 minetest.register_craft({
 	type="cooking",
 	output="trucraft:glue",
@@ -572,4 +624,70 @@ truCraft.register_advanced_craft({
 	item7="trucraft:fabric", 
 	item8="default:stick",
 	result="trucraft:drawer"
+})
+
+truCraft.register_dry({
+	item="default:papyrus",
+	result="default:paper",
+	time=3
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:shaft2", 
+	item2="trucraft:shaft2", 
+	item3="trucraft:wood", 
+	item4="trucraft:string3",
+	result="trucraft:rack"
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:glue", 
+	item2="trucraft:coal_dust", 
+	item3="default:wood", 
+	item4="",
+	result="trucraft:wood"
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:glue", 
+	item2="trucraft:coal_dust", 
+	item3="default:acacia_wood", 
+	item4="",
+	result="trucraft:wood"
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:glue", 
+	item2="trucraft:coal_dust", 
+	item3="default:pine_wood", 
+	item4="",
+	result="trucraft:wood"
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:glue", 
+	item2="trucraft:coal_dust", 
+	item3="default:junglewood", 
+	item4="",
+	result="trucraft:wood"
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:glue", 
+	item2="trucraft:coal_dust", 
+	item3="default:aspen_wood", 
+	item4="",
+	result="trucraft:wood"
+})
+
+truCraft.register_dry({
+	item="trucraft:glue",
+	result="trucraft:polymer",
+	time=6
+})
+
+minetest.register_craft({
+	type="cooking",
+	output="trucraft:plastic",
+	recipe="trucraft:polymer"
 })
