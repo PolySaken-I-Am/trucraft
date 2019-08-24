@@ -6,7 +6,7 @@ minetest.register_tool("trucraft:stone_club", {
 		full_punch_interval = 1.2,
 		max_drop_level=0,
 		groupcaps={
-			cracky = {times={[3]=30.60}, times={[4]=40.60}, uses=10, maxlevel=1},
+			cracky = {times={[3]=20.60}, uses=10, maxlevel=1},
 			choppy = {times={[3]=10.00, [2]=5.00, [1]=5.00}, uses=10, maxlevel=1},
 		},
 		damage_groups = {fleshy=3},

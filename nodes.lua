@@ -1183,11 +1183,11 @@ minetest.register_lbm({
 })
 
 minetest.override_item("default:stone_with_tin", {
-	groups={cracky=4}
+	groups={cracky=3}
 })
 
 minetest.override_item("default:stone_with_copper", {
-	groups={cracky=4}
+	groups={cracky=3}
 })
 
 minetest.register_node("trucraft:rock_reinforced", {
