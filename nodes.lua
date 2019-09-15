@@ -800,12 +800,13 @@ minetest.register_node("trucraft:fire", {
 				vertical = true,
 				texture = "default_furnace_fire_fg.png"
 			})
+			math.randomseed(os.time())
 			minetest.add_particle({
 				pos = pos,
-				velocity = {x=0.05, y=0.3, z=0.05},
+				velocity = {x=math.random(0.05, -0.05), y=0.3, z=0.05, x=math.random(0.05, -0.05)},
 				acceleration = {x=0.05, y=0.3, z=0.05},
 				expirationtime = 5,
-				size = 3,
+				size = math.random(1,5),
 				collisiondetection = false,
 				vertical = false,
 				texture = "poly_tcsmoke.png"
@@ -958,12 +959,13 @@ minetest.register_node("trucraft:furnaceplate2", {
 				vertical = true,
 				texture = "default_furnace_fire_fg.png"
 			})
+			math.randomseed(os.time())
 			minetest.add_particle({
 				pos = pos,
-				velocity = {x=0.05, y=0.3, z=0.05},
+				velocity = {x=math.random(0.05, -0.05), y=0.3, z=0.05, x=math.random(0.05, -0.05)},
 				acceleration = {x=0.05, y=0.3, z=0.05},
 				expirationtime = 5,
-				size = 3,
+				size = math.random(1,5),
 				collisiondetection = false,
 				vertical = false,
 				texture = "poly_tcsmoke.png"
@@ -1448,7 +1450,7 @@ minetest.register_node("trucraft:drawer", {
 	sunlight_propagates=true,
 	drawtype="nodebox",
 	groups={cracky=3, oddly_breakable_by_hand=3},
-	sounds=default.node_sound_metal_defaults(),
+	sounds=default.node_sound_wood_defaults(),
 	selection_box={
 		type = "fixed",
 		fixed = {
@@ -1646,4 +1648,35 @@ minetest.register_node("trucraft:wood", {
 	is_ground_content = false,
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, wood = 1},
 	sounds = default.node_sound_wood_defaults(),
+})
+
+minetest.register_node("trucraft:bricks", {
+	description = "Heatproof Stone",
+	paramtype2 = "facedir",
+	place_param2 = 0,
+	tiles = {"poly_tcbrick.png"},
+	is_ground_content = false,
+	groups = {cracky = 2},
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("trucraft:tank", {
+	description="Lava Tank",
+	tiles={"poly_tcbrick2.png"},
+	is_ground_content=false,
+	paramtype2="glasslikeliquidlevel",
+	special_tiles={"default_lava.png"},
+	sunlight_propagates=true,
+	drawtype="glasslike_framed",
+	groups={cracky=3, oddly_breakable_by_hand=3},
+	sounds=default.node_sound_stone_defaults(),
+	on_rightclick = function(pos, node, clicker, itemstack)
+		local meta = minetest.get_meta(pos)
+		local inv=clicker:get_inventory()
+		`
+	end,
+	on_punch = function(pos, node, player, pointed_thing)
+		local meta = minetest.get_meta(pos)
+		local inv=player:get_inventory()
+	end,
 })

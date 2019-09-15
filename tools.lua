@@ -101,3 +101,17 @@ minetest.register_tool("trucraft:sword_steel", {
 	},
 	sound = {breaks = "default_tool_breaks"},
 })
+
+minetest.register_tool("trucraft:knife", {
+	description = "Steel Flip Knife",
+	inventory_image = "poly_tcknife.png",
+	tool_capabilities = {
+		full_punch_interval = 0.1,
+		max_drop_level=1,
+		groupcaps={
+			snappy={times={[1]=0.5, [2]=0.10, [3]=0.5}, uses=45, maxlevel=3},
+		},
+		damage_groups = {fleshy=6},
+	},
+	sound = {breaks = "default_tool_breaks"},
+})

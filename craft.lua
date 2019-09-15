@@ -243,6 +243,10 @@ else
 		truCraft.anvil[def.item]=def.result
 	end
 	
+	function truCraft.register_beat2(def)
+		truCraft.anvil[def.item]=def.result
+	end
+	
 	function truCraft.register_dry(def)
 		truCraft.rack[def.item]=def
 	end
@@ -690,4 +694,18 @@ minetest.register_craft({
 	type="cooking",
 	output="trucraft:plastic",
 	recipe="trucraft:polymer"
+})
+
+minetest.register_craft({
+	type="cooking",
+	output="trucraft:bricks",
+	recipe="default:stone"
+})
+
+truCraft.register_basic_craft({
+	item1="trucraft:plastic", 
+	item2="trucraft:steel_blade", 
+	item3="trucraft:steel_rod", 
+	item4="trucraft:steel_wedge",
+	result="trucraft:knife"
 })
