@@ -627,7 +627,31 @@ truCraft.register_advanced_craft({
 	item6="default:stick", 
 	item7="trucraft:fabric", 
 	item8="default:stick",
-	result="trucraft:drawer"
+	result="trucraft:hamper"
+})
+
+truCraft.register_advanced_craft({
+	item1="default:tin_ingot", 
+	item2="", 
+	item3="default:tin_ingot", 
+	item4="trucraft:steel_plate",
+	item5="trucraft:steel_plate", 
+	item6="default:tin_ingot", 
+	item7="trucraft:hamper", 
+	item8="default:tin_ingot",
+	result="trucraft:bin"
+})
+
+truCraft.register_advanced_craft({
+	item1="default:steel_ingot", 
+	item2="default:obsidian_glass", 
+	item3="default:steel_ingot", 
+	item4="trucraft:plastic",
+	item5="trucraft:plastic", 
+	item6="default:steel_ingot", 
+	item7="trucraft:bin", 
+	item8="default:steel_ingot",
+	result="trucraft:deeps"
 })
 
 truCraft.register_dry({
@@ -694,12 +718,6 @@ minetest.register_craft({
 	type="cooking",
 	output="trucraft:plastic",
 	recipe="trucraft:polymer"
-})
-
-minetest.register_craft({
-	type="cooking",
-	output="trucraft:bricks",
-	recipe="default:stone"
 })
 
 truCraft.register_basic_craft({
