@@ -1,6 +1,7 @@
+local S = minetest.get_translator("trucraft")
 
 minetest.register_node("trucraft:rock_stone", {
-	description="Rock",
+	description = S("Rock"),
 	tiles={"default_stone.png"},
 	is_ground_content=false,
 	sunlight_propagates=true,
@@ -39,7 +40,7 @@ minetest.register_decoration({
 })
 
 minetest.register_node("trucraft:rock_sandstone", {
-	description="Sandstone Lump",
+	description = S("Sandstone Lump"),
 	tiles={"default_sandstone.png"},
 	is_ground_content=false,
 	sunlight_propagates=true,
@@ -78,7 +79,7 @@ minetest.register_decoration({
 })
 
 minetest.register_node("trucraft:rock_desert_stone", {
-	description="Red Rock",
+	description = S("Red Rock"),
 	tiles={"default_desert_stone.png"},
 	is_ground_content=false,
 	sunlight_propagates=true,
@@ -117,7 +118,7 @@ minetest.register_decoration({
 })
 
 minetest.register_node("trucraft:stick", {
-	description="Stick",
+	description = S("Stick"),
 	tiles={"poly_tcstick.png"},
 	is_ground_content=false,
 	sunlight_propagates=true,
@@ -159,7 +160,7 @@ minetest.register_decoration({
 })
 
 minetest.register_node("trucraft:aca_stick", {
-	description="Stick",
+	description = S("Stick"),
 	tiles={"poly_tcstick2.png"},
 	is_ground_content=false,
 	sunlight_propagates=true,
@@ -200,7 +201,7 @@ minetest.register_decoration({
 })
 
 minetest.register_node("trucraft:asp_stick", {
-	description="Stick",
+	description = S("Stick"),
 	tiles={"poly_tcstick3.png"},
 	is_ground_content=false,
 	sunlight_propagates=true,
@@ -241,7 +242,7 @@ minetest.register_decoration({
 })
 
 minetest.register_node("trucraft:string2", {
-	description="Fiber String",
+	description = S("Fiber String"),
 	tiles={"poly_tcstick4.png"},
 	is_ground_content=false,
 	sunlight_propagates=true,
@@ -270,7 +271,7 @@ minetest.register_node("trucraft:string2", {
 })
 
 minetest.register_node("trucraft:string3", {
-	description="Refined Twine",
+	description = S("Refined Twine"),
 	tiles={"poly_tcstick6.png"},
 	is_ground_content=false,
 	sunlight_propagates=true,
@@ -494,7 +495,7 @@ local d3 = function(pos)
 end
 
 minetest.register_node("trucraft:table", {
-	description="Basic Crafting Pedestal",
+	description = S("Basic Crafting Pedestal"),
 	tiles={"default_tree_top.png^poly_tcmatrix.png", "default_tree_top.png", "default_tree.png"},
 	is_ground_content=false,
 	paramtype="light",
@@ -573,7 +574,7 @@ minetest.register_lbm({
 })
 
 minetest.register_node("trucraft:station", {
-	description="Basic Crafting Bench",
+	description = S("Basic Crafting Bench"),
 	tiles={"default_tree_top.png^poly_tcmatrix2.png", "default_tree_top.png", "default_tree.png^poly_tcstick5.png"},
 	is_ground_content=false,
 	paramtype="light",
@@ -669,7 +670,7 @@ minetest.register_node("trucraft:station", {
 })
 
 minetest.register_node("trucraft:fire", {
-	description="Campfire",
+	description = S("Campfire"),
 	tiles={"default_cobble.png^poly_tcampfire_top.png", "default_cobble.png", "default_cobble.png^poly_tcampfire.png"},
 	is_ground_content=false,
 	paramtype="light",
@@ -830,7 +831,7 @@ minetest.register_node("trucraft:fire", {
 })
 
 minetest.register_node("trucraft:furnaceplate", {
-	description="Smeltery Fuel Plate",
+	description = S("Smeltery Fuel Plate"),
 	tiles={"default_stone.png^poly_tcampfire_top2.png", "default_stone.png", "default_stone.png^poly_tcampfire2.png"},
 	is_ground_content=false,
 	paramtype="light",
@@ -893,7 +894,7 @@ minetest.register_node("trucraft:furnaceplate", {
 })
 
 minetest.register_node("trucraft:furnaceplate2", {
-	description="Smeltery Fuel Plate",
+	description = S("Smeltery Fuel Plate"),
 	tiles={"default_stone.png^poly_tcampfire_top3.png", "default_stone.png", "default_stone.png^poly_tcampfire2.png"},
 	is_ground_content=false,
 	paramtype="light",
@@ -980,7 +981,7 @@ minetest.register_node("trucraft:furnaceplate2", {
 })
 
 minetest.register_node("trucraft:furnacetop", {
-	description="Smeltery Hob",
+	description = S("Smeltery Hob"),
 	tiles={"default_stone.png^poly_tcampfire_top4.png", "default_stone.png", "default_stone.png"},
 	is_ground_content=false,
 	paramtype="light",
@@ -1090,7 +1091,7 @@ minetest.register_lbm({
 })
 
 minetest.register_node("trucraft:anvilstone", {
-	description="Basic Stone Anvil",
+	description = S("Basic Stone Anvil"),
 	tiles={"default_stone.png^poly_tcmatrix3.png", "default_stone.png", "default_stone.png"},
 	is_ground_content=false,
 	paramtype="light",
@@ -1193,7 +1194,7 @@ minetest.override_item("default:stone_with_copper", {
 })
 
 minetest.register_node("trucraft:rock_reinforced", {
-	description="Reinforced Stone",
+	description = S("Reinforced Stone"),
 	tiles={"default_stone.png"},
 	is_ground_content=false,
 	sunlight_propagates=true,
@@ -1215,7 +1216,7 @@ minetest.register_node("trucraft:rock_reinforced", {
 })
 
 minetest.register_node("trucraft:table2", {
-	description="Advanced Crafting Pedestal",
+	description = S("Advanced Crafting Pedestal"),
 	tiles={"default_steel_block.png^poly_tcmatrix.png", "default_steel_block.png", "default_steel_block.png"},
 	is_ground_content=false,
 	paramtype="light",
@@ -1280,7 +1281,7 @@ minetest.register_lbm({
 
 
 minetest.register_node("trucraft:station2", {
-	description="Advanced Crafting Bench",
+	description = S("Advanced Crafting Bench"),
 	tiles={"default_steel_block.png^poly_tcmatrix2.png", "default_steel_block.png", "default_steel_block.png^poly_tcstick7.png"},
 	is_ground_content=false,
 	paramtype="light",
@@ -1443,7 +1444,7 @@ local d4 = function(pos)
 end
 
 minetest.register_node("trucraft:hamper", {
-	description="Storage Hamper",
+	description = S("Storage Hamper"),
 	tiles={"poly_tccrate.png"},
 	is_ground_content=false,
 	paramtype="light",
@@ -1537,7 +1538,7 @@ minetest.register_node("trucraft:hamper", {
 })
 
 minetest.register_node("trucraft:bin", {
-	description="Storage Bin",
+	description = S("Storage Bin"),
 	tiles={"poly_tccrate2.png"},
 	is_ground_content=false,
 	paramtype="light",
@@ -1631,7 +1632,7 @@ minetest.register_node("trucraft:bin", {
 })
 
 minetest.register_node("trucraft:deeps", {
-	description="Deep Storage Unit",
+	description = S("Deep Storage Unit"),
 	tiles={"poly_tccrate3.png"},
 	is_ground_content=false,
 	paramtype="light",
@@ -1736,7 +1737,7 @@ minetest.register_lbm({
 
 
 minetest.register_node("trucraft:rack", {
-	description="Drying Rack",
+	description = S("Drying Rack"),
 	tiles={"default_wood.png^[colorize:#66430d90"},
 	is_ground_content=false,
 	paramtype="light",
@@ -1837,7 +1838,7 @@ minetest.register_node("trucraft:rack", {
 })
 
 minetest.register_node("trucraft:wood", {
-	description = "Treated Wood",
+	description = S("Treated Wood"),
 	paramtype2 = "facedir",
 	place_param2 = 0,
 	tiles = {"default_wood.png^[colorize:#66430d90"},
