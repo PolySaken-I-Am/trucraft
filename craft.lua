@@ -1,8 +1,9 @@
+local S = minetest.get_translator("trucraft")
 
 if minetest.get_modpath("unified_inventory") then
 
 	unified_inventory.register_craft_type("trucraft:finding", {
-		description="Found On the Ground",
+		description = S("Found On the Ground"),
 		icon="poly_tcmag.png",
 		width=1,
 		height=1,
@@ -37,7 +38,7 @@ if minetest.get_modpath("unified_inventory") then
 	})
 	
 	unified_inventory.register_craft_type("trucraft:leftclick", {
-		description="Left-Clicking",
+		description = S("Left-Clicking"),
 		icon="poly_tccursor.png",
 		width=1,
 		height=1,
@@ -72,7 +73,7 @@ if minetest.get_modpath("unified_inventory") then
 	})
 	
 	unified_inventory.register_craft_type("trucraft:leftclick2", {
-		description="Smackin'",
+		description = S("Smackin'"),
 		icon="poly_tchand.png",
 		width=1,
 		height=2,
@@ -121,14 +122,14 @@ if minetest.get_modpath("unified_inventory") then
 	})
 	
 	unified_inventory.register_craft_type("trucraft:combo", {
-		description="Combination",
+		description = S("Combination"),
 		icon="default_tree_top.png^poly_tcmatrix2.png",
 		width=2,
 		height=2,
 	})
 	
 	unified_inventory.register_craft_type("trucraft:rack", {
-		description="Drying Rack",
+		description = S("Drying Rack"),
 		icon="poly_tcrack.png",
 		width=1,
 		height=1,
@@ -154,7 +155,7 @@ if minetest.get_modpath("unified_inventory") then
 	end
 	
 	unified_inventory.register_craft_type("trucraft:leftclick3", {
-		description="Chopping Block",
+		description = S("Chopping Block"),
 		icon="default_tree_top.png^poly_tcmatrix.png",
 		width=1,
 		height=2,
@@ -171,7 +172,7 @@ if minetest.get_modpath("unified_inventory") then
 	end
 	
 	unified_inventory.register_craft_type("trucraft:leftclick4", {
-		description="Anvil",
+		description = S("Anvil"),
 		icon="default_stone.png^poly_tcmatrix3.png",
 		width=1,
 		height=2,
@@ -198,7 +199,7 @@ if minetest.get_modpath("unified_inventory") then
 	end
 	
 	unified_inventory.register_craft_type("trucraft:combo2", {
-		description="Advanced Combination",
+		description = S("Advanced Combination"),
 		icon="default_steel_block.png^poly_tcmatrix2.png",
 		width=3,
 		height=3,
