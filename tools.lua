@@ -1,6 +1,8 @@
+-- локализация перевода
+local S = minetest.get_translator("trucraft")
 
 minetest.register_tool("trucraft:stone_club", {
-	description = "Stone Tool",
+	description = S("Stone Tool"),
 	inventory_image = "poly_tcclub.png",
 	tool_capabilities = {
 		full_punch_interval = 1.2,
@@ -16,7 +18,7 @@ minetest.register_tool("trucraft:stone_club", {
 })
 
 minetest.register_tool("trucraft:copper_knife", {
-	description = "Copper Workblade",
+	description = S("Copper Workblade"),
 	inventory_image = "poly_tccopperk.png",
 	tool_capabilities = {
 		full_punch_interval = 1.2,
@@ -31,7 +33,7 @@ minetest.register_tool("trucraft:copper_knife", {
 })
 
 minetest.register_tool("trucraft:stone_mallet", {
-	description = "Reinforced Stone Mallet",
+	description = S("Reinforced Stone Mallet"),
 	inventory_image = "poly_tchammer.png",
 	tool_capabilities = {
 		full_punch_interval = 1.2,
@@ -46,7 +48,7 @@ minetest.register_tool("trucraft:stone_mallet", {
 })
 
 minetest.register_tool("trucraft:steel_mallet", {
-	description = "Steel Mallet",
+	description = S("Steel Mallet"),
 	inventory_image = "poly_tchammer2.png",
 	tool_capabilities = {
 		full_punch_interval = 1.2,
@@ -61,7 +63,7 @@ minetest.register_tool("trucraft:steel_mallet", {
 })
 
 minetest.register_tool("trucraft:pick_steel", {
-	description = "Enhanced Steel Pickaxe",
+	description = S("Enhanced Steel Pickaxe"),
 	inventory_image = "default_tool_steelpick.png^poly_tcpickd.png",
 	tool_capabilities = {
 		full_punch_interval = 1.0,
@@ -75,7 +77,7 @@ minetest.register_tool("trucraft:pick_steel", {
 })
 
 minetest.register_tool("trucraft:axe_steel", {
-	description = "Enhanced Steel Axe",
+	description = S("Enhanced Steel Axe"),
 	inventory_image = "default_tool_steelaxe.png^poly_tcaxed.png",
 	tool_capabilities = {
 		full_punch_interval = 1.0,
@@ -89,7 +91,7 @@ minetest.register_tool("trucraft:axe_steel", {
 })
 
 minetest.register_tool("trucraft:sword_steel", {
-	description = "Enhanced Steel Sword",
+	description = S("Enhanced Steel Sword"),
 	inventory_image = "default_tool_steelsword.png^poly_tcswordd.png",
 	tool_capabilities = {
 		full_punch_interval = 0.8,
@@ -103,7 +105,7 @@ minetest.register_tool("trucraft:sword_steel", {
 })
 
 minetest.register_tool("trucraft:knife", {
-	description = "Steel Flip Knife",
+	description = S("Steel Flip Knife"),
 	inventory_image = "poly_tcknife.png",
 	tool_capabilities = {
 		full_punch_interval = 0.1,
